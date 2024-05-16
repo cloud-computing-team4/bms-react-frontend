@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@lexical/clipboard": "^0.15.0",
+    "@lexical/code": "^0.15.0",
     "@lexical/html": "^0.15.0",
     "@lexical/link": "^0.15.0",
     "@lexical/list": "^0.15.0",
+    "@lexical/markdown": "^0.15.0",
     "@lexical/react": "^0.15.0",
     "@lexical/rich-text": "^0.15.0",
     "@lexical/selection": "^0.15.0",

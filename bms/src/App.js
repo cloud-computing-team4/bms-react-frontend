@@ -1,4 +1,4 @@
-import { TextEditor } from "./components/TextEditor";
+import { TextEditor } from "./text editor/TextEditor";
 import "ress";
 
 function App() {

@@ -61,7 +61,7 @@ export const HeadingPlugin = () => {
         setBlockType(BlockType.paragraph);
       });
     });
-  }, [editor]);
+  }, [editor, setHeading]);
 
   return (
     <div className="toolbar" ref={toolbarRef}>

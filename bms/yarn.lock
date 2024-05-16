@@ -1633,9 +1633,9 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
 
-"@lexical/clipboard@0.15.0":
+"@lexical/clipboard@0.15.0", "@lexical/clipboard@^0.15.0":
   version "0.15.0"
-  resolved "https://registry.npmjs.org/@lexical/clipboard/-/clipboard-0.15.0.tgz"
+  resolved "https://registry.yarnpkg.com/@lexical/clipboard/-/clipboard-0.15.0.tgz#1a8bf8dde44f65658182b5573bfe3cf57bcad585"
   integrity sha512-binCltK7KiURQJFogvueYfmDNEKynN/lmZrCLFp2xBjEIajqw4WtOVLJZ33engdqNlvj0JqrxrWxbKG+yvUwrg==
   dependencies:
     "@lexical/html" "0.15.0"
@@ -1644,9 +1644,9 @@
     "@lexical/utils" "0.15.0"
     lexical "0.15.0"
 
-"@lexical/code@0.15.0":
+"@lexical/code@0.15.0", "@lexical/code@^0.15.0":
   version "0.15.0"
-  resolved "https://registry.npmjs.org/@lexical/code/-/code-0.15.0.tgz"
+  resolved "https://registry.yarnpkg.com/@lexical/code/-/code-0.15.0.tgz#aee697f652528455c3782aa1d029f068e4314e58"
   integrity sha512-n185gjinGhz/M4BW1ayNPYAEgwW4T/NEFl2Wey/O+07W3zvh9k9ai7RjWd0c8Qzqc4DLlqvibvWPebWObQHA4w==
   dependencies:
     "@lexical/utils" "0.15.0"
@@ -1688,16 +1688,7 @@
     "@lexical/utils" "0.15.0"
     lexical "0.15.0"
 
-"@lexical/html@0.15.0":
-  version "0.15.0"
-  resolved "https://registry.npmjs.org/@lexical/html/-/html-0.15.0.tgz"
-  integrity sha512-x/sfGvibwo8b5Vso4ppqNyS/fVve6Rn+TmvP/0eWOaa0I3aOQ57ulfcK6p/GTe+ZaEi8vW64oZPdi8XDgwSRaA==
-  dependencies:
-    "@lexical/selection" "0.15.0"
-    "@lexical/utils" "0.15.0"
-    lexical "0.15.0"
-
-"@lexical/html@^0.15.0":
+"@lexical/html@0.15.0", "@lexical/html@^0.15.0":
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/@lexical/html/-/html-0.15.0.tgz#f616b831efafe77c597ca7ddc5bac4ec69de69c9"
   integrity sha512-x/sfGvibwo8b5Vso4ppqNyS/fVve6Rn+TmvP/0eWOaa0I3aOQ57ulfcK6p/GTe+ZaEi8vW64oZPdi8XDgwSRaA==
@@ -1733,6 +1724,19 @@
 "@lexical/markdown@0.15.0":
   version "0.15.0"
   resolved "https://registry.npmjs.org/@lexical/markdown/-/markdown-0.15.0.tgz"
+  integrity sha512-wu1EP758l452BovDa7i9ZAeWuFj+YY0bc2mNc08nfZ9GqdGMej1JIguY4CwIROCYVizprL9Ocn0avH1uv9b8fA==
+  dependencies:
+    "@lexical/code" "0.15.0"
+    "@lexical/link" "0.15.0"
+    "@lexical/list" "0.15.0"
+    "@lexical/rich-text" "0.15.0"
+    "@lexical/text" "0.15.0"
+    "@lexical/utils" "0.15.0"
+    lexical "0.15.0"
+
+"@lexical/markdown@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@lexical/markdown/-/markdown-0.15.0.tgz#1e41dcbd03d18092ea57c8dfe6b1219acdadb87d"
   integrity sha512-wu1EP758l452BovDa7i9ZAeWuFj+YY0bc2mNc08nfZ9GqdGMej1JIguY4CwIROCYVizprL9Ocn0avH1uv9b8fA==
   dependencies:
     "@lexical/code" "0.15.0"
