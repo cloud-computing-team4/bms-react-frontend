@@ -68,8 +68,8 @@ import { $isStyledListNode } from "../nodes/StyledListNode";
 
 const LIST_INDENT_SIZE = 4;
 
-const createBlockNode = function (createNode) {
-  return function (parentNode, children, match) {
+const createBlockNode = (createNode) => {
+  return (parentNode, children, match) => {
     const node = createNode(match);
     node.append(...children);
     parentNode.replace(node);
@@ -77,7 +77,7 @@ const createBlockNode = function (createNode) {
   };
 };
 
-function getIndent(whitespaces) {
+const getIndent = (whitespaces) => {
   const tabs = whitespaces.match(/\t/g);
   const spaces = whitespaces.match(/ /g);
 
@@ -92,10 +92,10 @@ function getIndent(whitespaces) {
   }
 
   return indent;
-}
+};
 
-const listReplace = function (listType) {
-  return function (parentNode, children, match) {
+const listReplace = (listType) => {
+  return (parentNode, children, match) => {
     const previousNode = parentNode.getPreviousSibling();
     const nextNode = parentNode.getNextSibling();
     const listItem = $createListItemNode(
@@ -106,7 +106,6 @@ const listReplace = function (listType) {
       if (firstChild !== null) {
         firstChild.insertBefore(listItem);
       } else {
-        // should never happen, but let's handle gracefully, just in case.
         nextNode.append(listItem);
       }
       parentNode.remove();
@@ -133,7 +132,7 @@ const listReplace = function (listType) {
   };
 };
 
-const listExport = function (listNode, exportChildren, depth) {
+const listExport = (listNode, exportChildren, depth) => {
   const output = [];
   const children = listNode.getChildren();
   let index = 0;
@@ -164,7 +163,7 @@ const listExport = function (listNode, exportChildren, depth) {
 
 const HEADING = {
   dependencies: [HeadingNode],
-  export: function (node, exportChildren) {
+  export: (node, exportChildren) => {
     if (!$isHeadingNode(node)) {
       return null;
     }
@@ -172,7 +171,7 @@ const HEADING = {
     return "#".repeat(level) + " " + exportChildren(node);
   },
   regExp: /^(#{1,6})\s/,
-  replace: createBlockNode(function (match) {
+  replace: createBlockNode((match) => {
     const tag = "h" + match[1].length;
     return $createStyledHeadingNode(tag);
   }),
@@ -181,7 +180,7 @@ const HEADING = {
 
 const QUOTE = {
   dependencies: [QuoteNode],
-  export: function (node, exportChildren) {
+  export: (node, exportChildren) => {
     if (!$isStyledQuoteNode(node)) {
       return null;
     }
@@ -194,7 +193,7 @@ const QUOTE = {
     return output.join("\n");
   },
   regExp: /^>\s/,
-  replace: function (parentNode, children, _match, isImport) {
+  replace: (parentNode, children, _match, isImport) => {
     if (isImport) {
       const previousNode = parentNode.getPreviousSibling();
       if ($isStyledQuoteNode(previousNode)) {
@@ -218,7 +217,7 @@ const QUOTE = {
 
 const UNORDERED_LIST = {
   dependencies: [ListNode, ListItemNode],
-  export: function (node, exportChildren) {
+  export: (node, exportChildren) => {
     return $isStyledListNode(node) ? listExport(node, exportChildren, 0) : null;
   },
   regExp: /^(\s*)[-*+]\s/,
@@ -228,7 +227,7 @@ const UNORDERED_LIST = {
 
 const ORDERED_LIST = {
   dependencies: [ListNode, ListItemNode],
-  export: function (node, exportChildren) {
+  export: (node, exportChildren) => {
     return $isStyledListNode(node) ? listExport(node, exportChildren, 0) : null;
   },
   regExp: /^(\s*)(\d{1,})\.\s/,
