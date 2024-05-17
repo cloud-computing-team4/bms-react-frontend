@@ -18,7 +18,7 @@ export const Divider = () => {
   return <div className="divider" />;
 };
 
-export const BasicToolbarPlugin = () => {
+export const BasicPlugin = () => {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
   const [canUndo, setCanUndo] = useState(false);

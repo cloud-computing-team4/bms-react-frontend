@@ -1,8 +1,24 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { $getSelection, $isRangeSelection } from "lexical";
+import {
+  $createParagraphNode,
+  $getSelection,
+  $isRangeSelection,
+} from "lexical";
 import { $setBlocksType } from "@lexical/selection";
-import { $createHeadingNode, $isHeadingNode } from "@lexical/rich-text";
+import { $createStyledQuoteNode } from "../nodes/StyledQuoteNode";
+import {
+  $isListNode,
+  INSERT_ORDERED_LIST_COMMAND,
+  INSERT_UNORDERED_LIST_COMMAND,
+  ListNode,
+} from "@lexical/list";
+import { $getNearestNodeOfType } from "@lexical/utils";
+import {
+  $createStyledHeadingNode,
+  $isStyledHeadingNode,
+} from "../nodes/StyledHeadingNode";
+// import { $isStyledListNode, StyledListNode } from "../nodes/StyledListNode";
 
 const BlockType = {
   paragraph: "paragraph",
@@ -11,9 +27,12 @@ const BlockType = {
   h3: "h3",
   h4: "h4",
   h5: "h5",
+  quote: "quote",
+  ordered: "number",
+  unordered: "bullet",
 };
 
-export const HeadingPlugin = () => {
+export const BlockPlugin = () => {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
   const [blockType, setBlockType] = useState(BlockType.paragraph);
@@ -25,13 +44,41 @@ export const HeadingPlugin = () => {
           const selection = $getSelection();
 
           if ($isRangeSelection(selection)) {
-            $setBlocksType(selection, () => $createHeadingNode(type));
+            $setBlocksType(selection, () =>
+              type === BlockType.paragraph
+                ? $createParagraphNode()
+                : // : $createHeadingNode(type),
+                  $createStyledHeadingNode(type),
+            );
           }
         });
       }
     },
     [blockType, editor],
   );
+
+  const setQuote = useCallback(() => {
+    if (blockType !== BlockType.quote) {
+      editor.update(() => {
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          $setBlocksType(selection, () => $createStyledQuoteNode());
+        }
+      });
+    }
+  }, [blockType, editor]);
+
+  const setOrderedList = useCallback(() => {
+    if (blockType !== BlockType.ordered) {
+      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+    }
+  }, [blockType, editor]);
+
+  const setUnorderedList = useCallback(() => {
+    if (blockType !== BlockType.unordered) {
+      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+    }
+  }, [blockType, editor]);
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
@@ -46,8 +93,18 @@ export const HeadingPlugin = () => {
             ? anchorNode
             : anchorNode.getTopLevelElementOrThrow();
 
-        if ($isHeadingNode(targetNode)) {
+        if ($isStyledHeadingNode(targetNode)) {
           setBlockType(targetNode.getTag());
+          return;
+        }
+
+        if ($isListNode(targetNode)) {
+          const parentList = $getNearestNodeOfType(anchorNode, ListNode);
+          const listType = parentList
+            ? parentList.getListType()
+            : targetNode.getListType();
+
+          setBlockType(listType);
           return;
         }
 
@@ -70,7 +127,7 @@ export const HeadingPlugin = () => {
           setHeading(BlockType.paragraph);
         }}
         className={"toolbar-item spaced "}
-        aria-label="paragraph"
+        aria-label="p"
       >
         <i className="format paragraph" />
       </button>
@@ -139,6 +196,42 @@ export const HeadingPlugin = () => {
         aria-label="H6"
       >
         <i className="format h6" />
+      </button>
+      <button
+        onClick={() => {
+          setQuote();
+        }}
+        className={
+          "toolbar-item spaced " +
+          (blockType === BlockType.quote ? "active" : "")
+        }
+        aria-label="Quote"
+      >
+        <i className="format quote" />
+      </button>
+      <button
+        onClick={() => {
+          setOrderedList();
+        }}
+        className={
+          "toolbar-item spaced " +
+          (blockType === BlockType.ordered ? "active" : "")
+        }
+        aria-label="Number"
+      >
+        <i className="format ordered" />
+      </button>
+      <button
+        onClick={() => {
+          setUnorderedList();
+        }}
+        className={
+          "toolbar-item spaced " +
+          (blockType === BlockType.unordered ? "active" : "")
+        }
+        aria-label="Bullet"
+      >
+        <i className="format unordered" />
       </button>
     </div>
   );

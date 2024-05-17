@@ -1,8 +1,3 @@
-h1 {
-    font-size: 24px;
-    color: #333;
-}
-
 .ltr {
     text-align: left;
 }
@@ -52,101 +47,25 @@ h1 {
     pointer-events: none;
 }
 
-.editor-text-bold {
+.bold {
     font-weight: bold;
 }
 
-.editor-text-italic {
+.italic {
     font-style: italic;
 }
 
-.editor-text-underline {
+.underline {
     text-decoration: underline;
 }
 
-.editor-text-strikethrough {
+.strikethrough {
     text-decoration: line-through;
 }
 
 .editor-link {
     color: rgb(33, 111, 219);
     text-decoration: none;
-}
-
-.editor-paragraph {
-    margin: 0 0 8px;
-    position: relative;
-}
-
-.editor-paragraph:last-child {
-    margin-bottom: 0;
-}
-
-.editor-heading-h1 {
-    font-size: 32px;
-    margin-bottom: 24px;
-}
-
-.editor-heading-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.editor-heading-h3 {
-    font-size: 18px;
-    margin-bottom: 16px;
-}
-
-.editor-heading-h4 {
-    font-size: 16px;
-    margin-bottom: 16px;
-}
-
-.editor-heading-h5 {
-    font-size: 14px;
-    margin-bottom: 16px;
-}
-
-.editor-heading-h6 {
-    font-size: 12px;
-    margin-bottom: 16px;
-}
-
-.editor-quote {
-    margin: 0 0 0 20px;
-    font-size: 15px;
-    color: rgb(101, 103, 107);
-    border-left-color: rgb(206, 208, 212);
-    border-left-width: 4px;
-    border-left-style: solid;
-    padding-left: 16px;
-}
-
-.editor-list-ol {
-    padding: 0;
-    margin: 0 0 0 16px;
-}
-
-.editor-list-ul {
-    padding: 0;
-    margin: 0 0 0 16px;
-}
-
-.editor-listitem {
-    margin: 8px 32px 8px 32px;
-}
-
-.editor-nested-listitem {
-    list-style-type: none;
-}
-
-pre::-webkit-scrollbar {
-    background: transparent;
-    width: 10px;
-}
-
-pre::-webkit-scrollbar-thumb {
-    background: #999;
 }
 
 .toolbar {
@@ -300,4 +219,16 @@ i.h6 {
 
 i.paragraph {
     background-image: url(../icons/text-svgrepo-com.svg);
+}
+
+i.quote {
+    background-image: url(../icons/double-quotes-r-svgrepo-com.svg);
+}
+
+i.ordered {
+    background-image: url(../icons/list-ordered-svgrepo-com.svg);
+}
+
+i.unordered {
+    background-image: url(../icons/list-unordered-svgrepo-com.svg);
 }

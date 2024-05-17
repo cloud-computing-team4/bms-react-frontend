@@ -4,18 +4,25 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
-import { BasicToolbarPlugin } from "./plugins/BasicToolbarPlugin";
+import { BasicPlugin } from "./plugins/BasicPlugin";
 import { EditorTheme } from "../EditorTheme";
 import "./textEditor.css";
 import { TextAlignPlugin } from "./plugins/TextAlignPlugin";
-import { HeadingPlugin } from "./plugins/HeadingPlugin";
+import { BlockPlugin } from "./plugins/BlockPlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { LinkNode } from "@lexical/link";
 import { HTMLPlugin } from "./plugins/HTMLPlugin";
 import { CodeNode } from "@lexical/code";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
-import { TRANSFORMERS } from "@lexical/markdown";
+import { StyledTextNode } from "./nodes/StyledTextNode";
+import { ParagraphNode, TextNode } from "lexical";
+import { StyledParagraphNode } from "./nodes/StyledParagraphNode";
+import { StyledQuoteNode } from "./nodes/StyledQuoteNode";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { StyledListNode } from "./nodes/StyledListNode";
+import { StyledHeadingNode } from "./nodes/StyledHeadingNode";
+import { SHORTCUTS } from "./plugins/shortcuts";
 
 const onError = (error) => {
   console.error(error);
@@ -23,7 +30,38 @@ const onError = (error) => {
 
 const editorConfig = {
   namespace: "bms",
-  nodes: [CodeNode, HeadingNode, LinkNode, ListNode, ListItemNode, QuoteNode],
+  nodes: [
+    CodeNode,
+    LinkNode,
+    ListItemNode,
+    HeadingNode,
+    QuoteNode,
+    StyledTextNode,
+    {
+      replace: TextNode,
+      with: (node) => new StyledTextNode(node.__text),
+    },
+    StyledHeadingNode,
+    {
+      replace: HeadingNode,
+      with: (node) => new HeadingNode(node.__tag),
+    },
+    StyledParagraphNode,
+    {
+      replace: ParagraphNode,
+      with: () => new StyledParagraphNode(),
+    },
+    StyledQuoteNode,
+    {
+      replace: QuoteNode,
+      with: () => new StyledQuoteNode(),
+    },
+    StyledListNode,
+    {
+      replace: ListNode,
+      with: (node) => new StyledListNode(node.__listType, node.__value),
+    },
+  ],
   onError,
   theme: EditorTheme,
 };
@@ -32,9 +70,9 @@ export const TextEditor = () => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
-        <BasicToolbarPlugin />
+        <BasicPlugin />
         <TextAlignPlugin />
-        <HeadingPlugin />
+        <BlockPlugin />
         <div className="editor-inner">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
@@ -46,7 +84,8 @@ export const TextEditor = () => {
           <HistoryPlugin />
           <AutoFocusPlugin />
           <HTMLPlugin />
-          <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          <MarkdownShortcutPlugin transformers={SHORTCUTS} />
+          <ListPlugin />
         </div>
       </div>
     </LexicalComposer>
