@@ -3,13 +3,17 @@ export const EditorTheme = {
   rtl: "rtl",
   hashtag: "editor-hashtag",
   image: "editor-image",
-  link: "editor-link",
+  // link: "editor-link",
+  list: {
+    nested: {
+      listitem: "nested",
+    },
+  },
   text: {
     bold: "bold",
     italic: "italic",
     strikethrough: "strikethrough",
     underline: "underline",
-    // subscript: "editor-textSubscript",
-    // superscript: "editor-textSuperscript",
+    code: "editor-text-code",
   },
 };

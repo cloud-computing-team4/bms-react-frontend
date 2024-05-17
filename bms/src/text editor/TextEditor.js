@@ -23,6 +23,9 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { StyledListNode } from "./nodes/StyledListNode";
 import { StyledHeadingNode } from "./nodes/StyledHeadingNode";
 import { SHORTCUTS } from "./plugins/shortcuts";
+import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
+import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
+import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 
 const onError = (error) => {
   console.error(error);
@@ -31,6 +34,7 @@ const onError = (error) => {
 const editorConfig = {
   namespace: "bms",
   nodes: [
+    HorizontalRuleNode,
     CodeNode,
     LinkNode,
     ListItemNode,
@@ -61,6 +65,11 @@ const editorConfig = {
       replace: ListNode,
       with: (node) => new StyledListNode(node.__listType, node.__value),
     },
+    // StyledListItemNode,
+    // {
+    //   replace: ListItemNode,
+    //   with: (node) => new StyledListItemNode(node.__value, node.__checked),
+    // },
   ],
   onError,
   theme: EditorTheme,
@@ -86,6 +95,8 @@ export const TextEditor = () => {
           <HTMLPlugin />
           <MarkdownShortcutPlugin transformers={SHORTCUTS} />
           <ListPlugin />
+          <TabIndentationPlugin />
+          <ListMaxIndentLevelPlugin />
         </div>
       </div>
     </LexicalComposer>

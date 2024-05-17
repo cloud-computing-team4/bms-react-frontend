@@ -32,7 +32,9 @@ export class StyledListNode extends ListNode {
   createDOM(config, editor) {
     const dom = super.createDOM(config);
     dom.style.padding = "0";
-    dom.style.margin = "0 0 10px 16px";
+    dom.style.margin = "8px 32px 8px 32px";
+    // dom.style.margin = "0";
+    // dom.style.listStylePosition = "inside";
 
     return dom;
   }
@@ -41,7 +43,9 @@ export class StyledListNode extends ListNode {
     const dom = super.exportDOM(editor);
     const node = dom.element;
     node.style.padding = "0";
-    node.style.margin = "0 0 10px 16px";
+    node.style.margin = "8px 32px 8px 32px";
+    // node.style.margin = "0";
+    // node.style.listStylePosition = "inside";
 
     return dom;
   }

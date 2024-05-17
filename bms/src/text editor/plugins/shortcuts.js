@@ -13,58 +13,72 @@ import {
   ListItemNode,
   ListNode,
 } from "@lexical/list";
-import { $isStyledListNode } from "../nodes/StyledListNode";
+import {
+  $createStyledListNode,
+  $isStyledListNode,
+} from "../nodes/StyledListNode";
+import {
+  $createHorizontalRuleNode,
+  $isHorizontalRuleNode,
+  HorizontalRuleNode,
+} from "@lexical/react/LexicalHorizontalRuleNode";
 
-// const HIGHLIGHT = {
-//   format: ["highlight"],
-//   tag: "==",
-//   type: "text-format",
-// };
-//
-// const BOLD_ITALIC_STAR = {
-//   format: ["bold", "italic"],
-//   tag: "***",
-//   type: "text-format",
-// };
-//
-// const BOLD_ITALIC_UNDERSCORE = {
-//   format: ["bold", "italic"],
-//   intraword: false,
-//   tag: "___",
-//   type: "text-format",
-// };
-//
-// const BOLD_STAR = {
-//   format: ["bold"],
-//   tag: "**",
-//   type: "text-format",
-// };
-//
-// const BOLD_UNDERSCORE = {
-//   format: ["bold"],
-//   intraword: false,
-//   tag: "__",
-//   type: "text-format",
-// };
-//
-// const STRIKETHROUGH = {
-//   format: ["strikethrough"],
-//   tag: "~~",
-//   type: "text-format",
-// };
-//
-// const ITALIC_STAR = {
-//   format: ["italic"],
-//   tag: "*",
-//   type: "text-format",
-// };
-//
-// const ITALIC_UNDERSCORE = {
-//   format: ["italic"],
-//   intraword: false,
-//   tag: "_",
-//   type: "text-format",
-// };
+const HIGHLIGHT = {
+  format: ["highlight"],
+  tag: "==",
+  type: "text-format",
+};
+
+const BOLD_ITALIC_STAR = {
+  format: ["bold", "italic"],
+  tag: "***",
+  type: "text-format",
+};
+
+const BOLD_ITALIC_UNDERSCORE = {
+  format: ["bold", "italic"],
+  intraword: false,
+  tag: "___",
+  type: "text-format",
+};
+
+const BOLD_STAR = {
+  format: ["bold"],
+  tag: "**",
+  type: "text-format",
+};
+
+const BOLD_UNDERSCORE = {
+  format: ["bold"],
+  intraword: false,
+  tag: "__",
+  type: "text-format",
+};
+
+const STRIKETHROUGH = {
+  format: ["strikethrough"],
+  tag: "~~",
+  type: "text-format",
+};
+
+const ITALIC_STAR = {
+  format: ["italic"],
+  tag: "*",
+  type: "text-format",
+};
+
+const ITALIC_UNDERSCORE = {
+  format: ["italic"],
+  intraword: false,
+  tag: "_",
+  type: "text-format",
+};
+
+const INLINE_CODE = {
+  format: ["code"],
+  tag: "`",
+  type: "text-format",
+};
 
 const LIST_INDENT_SIZE = 4;
 
@@ -101,6 +115,9 @@ const listReplace = (listType) => {
     const listItem = $createListItemNode(
       listType === "check" ? match[3] === "x" : undefined,
     );
+    // const listItem = $createStyledListItemNode(
+    //   listType === "check" ? match[3] === "x" : undefined,
+    // );
     if ($isListNode(nextNode) && nextNode.getListType() === listType) {
       const firstChild = nextNode.getFirstChild();
       if (firstChild !== null) {
@@ -116,10 +133,7 @@ const listReplace = (listType) => {
       previousNode.append(listItem);
       parentNode.remove();
     } else {
-      const list = $createListNode(
-        listType,
-        listType === "number" ? Number(match[2]) : undefined,
-      );
+      const list = $createStyledListNode(listType);
       list.append(listItem);
       parentNode.replace(list);
     }
@@ -218,6 +232,7 @@ const QUOTE = {
 const UNORDERED_LIST = {
   dependencies: [ListNode, ListItemNode],
   export: (node, exportChildren) => {
+    console.log("NODE", node);
     return $isStyledListNode(node) ? listExport(node, exportChildren, 0) : null;
   },
   regExp: /^(\s*)[-*+]\s/,
@@ -235,17 +250,39 @@ const ORDERED_LIST = {
   type: "element",
 };
 
+const HR = {
+  dependencies: [HorizontalRuleNode],
+  export: (node) => {
+    return $isHorizontalRuleNode(node) ? "***" : null;
+  },
+  regExp: /^(---|\*\*\*|___)\s?$/,
+  replace: (parentNode, _1, _2, isImport) => {
+    const line = $createHorizontalRuleNode();
+
+    if (isImport || parentNode.getNextSibling() != null) {
+      parentNode.replace(line);
+    } else {
+      parentNode.insertBefore(line);
+    }
+
+    line.selectNext();
+  },
+  type: "element",
+};
+
 export const SHORTCUTS = [
+  HR,
   HEADING,
   QUOTE,
   UNORDERED_LIST,
   ORDERED_LIST,
-  // HIGHLIGHT,
-  // BOLD_ITALIC_STAR,
-  // BOLD_ITALIC_UNDERSCORE,
-  // BOLD_STAR,
-  // BOLD_UNDERSCORE,
-  // STRIKETHROUGH,
-  // ITALIC_STAR,
-  // ITALIC_UNDERSCORE,
+  INLINE_CODE,
+  HIGHLIGHT,
+  BOLD_ITALIC_STAR,
+  BOLD_ITALIC_UNDERSCORE,
+  BOLD_STAR,
+  BOLD_UNDERSCORE,
+  STRIKETHROUGH,
+  ITALIC_STAR,
+  ITALIC_UNDERSCORE,
 ];
