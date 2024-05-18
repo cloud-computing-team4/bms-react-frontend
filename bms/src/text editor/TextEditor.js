@@ -6,7 +6,6 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { BasicPlugin } from "./plugins/BasicPlugin";
 import { EditorTheme } from "../EditorTheme";
-import "./textEditor.css";
 import { TextAlignPlugin } from "./plugins/TextAlignPlugin";
 import { BlockPlugin } from "./plugins/BlockPlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
@@ -24,8 +23,11 @@ import { StyledListNode } from "./nodes/StyledListNode";
 import { StyledHeadingNode } from "./nodes/StyledHeadingNode";
 import { SHORTCUTS } from "./plugins/shortcuts";
 import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
-import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
+import { ListMaxIndentLevelPlugin } from "./plugins/ListMaxIndentLevelPlugin";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
+import { DraggableBlockPlugin } from "./plugins/DraggableBlockPlugin";
+import { useState } from "react";
+import "./textEditor.css";
 
 const onError = (error) => {
   console.error(error);
@@ -76,13 +78,21 @@ const editorConfig = {
 };
 
 export const TextEditor = () => {
+  const [floatingAnchorElem, setFloatingAnchorElem] = useState(null);
+
+  const onRef = (_floatingAnchorElem) => {
+    if (_floatingAnchorElem !== null) {
+      setFloatingAnchorElem(_floatingAnchorElem);
+    }
+  };
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
         <BasicPlugin />
         <TextAlignPlugin />
         <BlockPlugin />
-        <div className="editor-inner">
+        <div className="editor-inner" ref={onRef}>
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
             placeholder={
@@ -97,6 +107,9 @@ export const TextEditor = () => {
           <ListPlugin />
           <TabIndentationPlugin />
           <ListMaxIndentLevelPlugin />
+          {floatingAnchorElem && (
+            <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
+          )}
         </div>
       </div>
     </LexicalComposer>
