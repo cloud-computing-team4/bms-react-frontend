@@ -1,3 +1,7 @@
+body {
+    font-size: 16px;
+}
+
 .ltr {
     text-align: left;
 }
@@ -40,6 +44,10 @@
 .editor-inner {
     background: #fff;
     position: relative;
+}
+
+.editor-wrap {
+    display: flex;
 }
 
 .editor-input {

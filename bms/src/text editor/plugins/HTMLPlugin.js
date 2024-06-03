@@ -2,7 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { useEffect } from "react";
 import { $generateHtmlFromNodes } from "@lexical/html";
 
-export const HTMLPlugin = () => {
+export const HTMLPlugin = ({ setMail }) => {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export const HTMLPlugin = () => {
 
       editorState.read(() => {
         const htmlString = $generateHtmlFromNodes(editor, null);
-        console.log(htmlString);
+        setMail(htmlString);
       });
     });
   }, [editor]);

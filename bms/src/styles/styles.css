@@ -1,0 +1,74 @@
+.form {
+    margin: 20px auto 20px auto;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #888888;
+}
+
+.mailButtonsWrap {
+    margin: 20px auto 20px auto;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #888888;
+}
+
+.titleInput {
+    margin: 20px auto 20px auto;
+    width: 800px;
+    display: flex;
+    justify-content: start;
+    border: 1px dashed #888888;
+    padding-left: 125px;
+    cursor: text;
+}
+
+.form input,
+.titleInput input {
+    padding-left: 5px;
+}
+
+.button {
+    margin: 20px auto 20px auto;
+    width: 100px;
+    border: 1px solid #888888;
+}
+
+.innerButton {
+    border: 1px dashed #888888;
+}
+
+.modal-overlay {
+    position: fixed;
+    /*top: -200px;*/
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    height: 900px;
+    overflow-y: auto;
+    width: 800px;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px dashed #888888;
+    border-radius: 4px;
+}

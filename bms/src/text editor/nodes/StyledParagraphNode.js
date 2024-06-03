@@ -31,6 +31,12 @@ export class StyledParagraphNode extends ParagraphNode {
     };
   }
 
+  // createDOM(config) {
+  //   const dom = super.createDOM(config);
+  //   dom.style.paddingLeft = "16px";
+  //   return dom;
+  // }
+
   exportDOM(editor) {
     const dom = super.exportDOM(editor);
     const node = dom.element;

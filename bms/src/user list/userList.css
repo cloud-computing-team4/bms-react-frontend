@@ -1,0 +1,59 @@
+.userList__Warp {
+    margin: 20px auto 20px auto;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    border: 1px dashed #888888;
+}
+
+.ListItemEven,
+.ListItemOdd {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ListItemButtonWrap {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-around;
+}
+
+.ListItemEven {
+    background-color: #f7f7f7;
+}
+
+.user__Wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Mail {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.Mail hr {
+    margin-top: 20px;
+    border-top:1px dotted #000;
+}
+
+.Mail .buttonWrap {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Mail .buttonWrap .innerButton {
+    margin-left: 5px;
+}
+
+button:hover {
+    background-color: #f1f1f1;
+}
+
+.MailList h2 {
+    text-align: center;
+}
