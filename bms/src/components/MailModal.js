@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { memo, Suspense } from "react";
 
-const Mail = memo(({ mail, deleteMail, setSelectedMailId }) => {
+const Mail = memo(({ mail, deleteMail, setSelectedMailId, sendMail }) => {
   return (
     <div className="Mail">
       <h3>{mail.title}</h3>
@@ -21,13 +21,20 @@ const Mail = memo(({ mail, deleteMail, setSelectedMailId }) => {
         >
           수정
         </button>
+        <button
+          className="innerButton"
+          type="button"
+          onClick={() => sendMail(mail.id)}
+        >
+          전송
+        </button>
       </div>
       <hr />
     </div>
   );
 });
 
-const MailList = ({ mails, deleteMail, setSelectedMailId }) => {
+const MailList = ({ mails, deleteMail, setSelectedMailId, sendMail }) => {
   return (
     <div className="MailList">
       <h2>전체 메일 목록</h2>
@@ -38,6 +45,7 @@ const MailList = ({ mails, deleteMail, setSelectedMailId }) => {
             mail={mail}
             deleteMail={deleteMail}
             setSelectedMailId={setSelectedMailId}
+            sendMail={sendMail}
           />
         );
       })}
@@ -51,6 +59,7 @@ export const MailModal = ({
   mails,
   deleteMail,
   setSelectedMailId,
+  sendMail,
 }) => {
   if (!isOpen) {
     return null;
@@ -69,6 +78,7 @@ export const MailModal = ({
             mails={mails}
             deleteMail={deleteMail}
             setSelectedMailId={setSelectedMailId}
+            sendMail={sendMail}
           />
         </Suspense>
       </div>

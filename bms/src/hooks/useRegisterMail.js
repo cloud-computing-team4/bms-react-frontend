@@ -28,12 +28,13 @@ export const useRegisterMail = () => {
         content: mail,
       })
       .then((r) => {
-        toast.success(`${r.data}로 등록 완료`);
+        toast.success(`${r.data.id}으로 등록 완료`);
+        toast("메일 전송 요청을 보냈습니다.");
         const cleanup = () => {
           setMail("");
           setTitle("");
         };
-        sendMail(r.data, cleanup);
+        sendMail(r.data.id, cleanup);
       })
       .catch((e) => toast.error(e.response.message ?? "메일 등록 요청 실패"));
     setIsResAndSendClicked(false);

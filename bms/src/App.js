@@ -7,6 +7,7 @@ import { useRegisterMail } from "./hooks/useRegisterMail";
 import { MailModal } from "./components/MailModal";
 import { useGetMails } from "./hooks/useGetMails";
 import { EditorModal } from "./components/EditorModal";
+import { useSendMail } from "./hooks/useSendMail";
 
 function App() {
   const { setTitle, setMail, setIsRegisterClicked, setIsResAndSendClicked } =
@@ -14,6 +15,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMailId, setSelectedMailId] = useState(-1);
   const { mails, deleteMail, updateMail } = useGetMails(isModalOpen);
+  const { sendMail } = useSendMail();
   return (
     <div className="App">
       <Toaster />
@@ -31,6 +33,7 @@ function App() {
         mails={mails}
         deleteMail={deleteMail}
         setSelectedMailId={setSelectedMailId}
+        sendMail={sendMail}
       />
       <EditorModal
         isOpen={mails.length > 0 && selectedMailId !== -1}
