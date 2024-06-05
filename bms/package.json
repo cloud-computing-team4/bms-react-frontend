@@ -2,6 +2,7 @@
   "name": "bms",
   "version": "0.1.0",
   "private": true,
+  "proxy" : "http://localhost:8080",
   "dependencies": {
     "@lexical/clipboard": "^0.15.0",
     "@lexical/code": "^0.15.0",
