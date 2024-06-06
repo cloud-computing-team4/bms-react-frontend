@@ -29,6 +29,7 @@ jobs:
 
       - name: Build
         run: CI= npm run build
+        working-directory: ./bms
 
       - name: Compress
         run: tar -zcf ${GITHUB_SHA::8}.tar.gz build
