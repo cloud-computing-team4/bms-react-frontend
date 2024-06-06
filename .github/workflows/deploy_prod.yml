@@ -31,10 +31,6 @@ jobs:
         run: CI= npm run build
         working-directory: ./bms
 
-      - name: Compress
-        run: tar -zcf ${GITHUB_SHA::8}.tar.gz build
-        working-directory: ./bms
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -45,8 +41,8 @@ jobs:
       - name: Upload to S3
         run: |
           aws s3 mv --region ap-northeast-2 \
-          ${GITHUB_SHA::8}.tar.gz \
-          ${{ secrets.S3_PROD_FRONT_LOCATION }}/${GITHUB_SHA::8}.tar.gz
+          build/ \
+          ${{ secrets.S3_PROD_FRONT_LOCATION }}
         working-directory: ./bms
 
       # - name: Sync to S3
