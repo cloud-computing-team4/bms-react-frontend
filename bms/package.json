@@ -2,7 +2,7 @@
   "name": "bms",
   "version": "0.1.0",
   "private": true,
-  "proxy" : "https://54.180.233.127:8080",
+  "proxy" : "https://54.180.233.127:443",
   "dependencies": {
     "@lexical/clipboard": "^0.15.0",
     "@lexical/code": "^0.15.0",
