@@ -24,9 +24,8 @@ jobs:
           echo "${{ secrets.ENV_PROD }}" >> .env
 
       - name: Install Dependencies
-        run: |
-          cd bms/
-          npm ci
+        run: npm ci
+        working-directory: ./bms
 
       - name: Build
         run: CI= npm run build
