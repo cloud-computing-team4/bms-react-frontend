@@ -50,3 +50,9 @@ jobs:
           aws s3 sync build ${{ secrets.S3_PROD_FRONT_LOCATION }} \
             --region ap-northeast-2 --delete
         working-directory: ./bms
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_PROD_DISTRIBUTION_ID }} \
+            --paths "/*"
