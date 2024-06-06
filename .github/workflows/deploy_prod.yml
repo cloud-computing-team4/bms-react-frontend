@@ -47,6 +47,7 @@ jobs:
           aws s3 mv --region ap-northeast-2 \
           ${GITHUB_SHA::8}.tar.gz \
           ${{ secrets.S3_PROD_FRONT_LOCATION }}/${GITHUB_SHA::8}.tar.gz
+        working-directory: ./bms
 
       - name: Sync to S3
         run: |
