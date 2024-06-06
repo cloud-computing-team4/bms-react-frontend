@@ -49,7 +49,7 @@ jobs:
           ${{ secrets.S3_PROD_FRONT_LOCATION }}/${GITHUB_SHA::8}.tar.gz
         working-directory: ./bms
 
-      - name: Sync to S3
-        run: |
-          aws s3 sync build ${{ secrets.S3_PROD_FRONT_DEPLOYMENT }} \
-            --delete
+      # - name: Sync to S3
+      #   run: |
+      #     aws s3 sync build ${{ secrets.S3_PROD_FRONT_DEPLOYMENT }} \
+      #       --delete
