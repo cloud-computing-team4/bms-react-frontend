@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://cloudbms.kro.kr",
+  baseURL: "https://cloudbms.kro.kr/",
   withCredentials: true,
 });
 
